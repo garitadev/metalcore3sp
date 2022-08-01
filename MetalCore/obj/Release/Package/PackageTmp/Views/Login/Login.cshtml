@@ -1,0 +1,116 @@
+﻿@model SB_Admin.Entities.UsuarioObj
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+   
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <!--<title>@ViewBag | SB Admin 2 - Dashboard</title>-->
+    <title>MetalCore</title>
+
+    <link href="~/Content/SB-Admin/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/vendor/bootstrap/scss/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Estilos/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="login-brand">
+                                <img src="~/Content/Images/Grupo-Arte-Metal-logo-.png" alt="logo" width="200" />
+
+                            </div>
+                            @Html.Label("", (string)ViewBag.MjsEmailEnviado, new { @class = "text-center text-success" })
+
+                            @using (Html.BeginForm("Validar", "Login", FormMethod.Post))
+                            {
+                                <div class="card-body">
+
+                                    <form method="post" id="formulario">
+                                        <div class="form-group">
+                                            <label for="email">Email-prueb</label>
+                                            @Html.TextBoxFor(m => m.email, new { @class = "form-control", @type = "Text" })
+                                            @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="d-block">
+                                                <label for="password" class="control-label">Contraseña</label>
+                                                <div class="float-right">
+                                                    <a href="@Url.Content("~/Login/GenerarTokenPassword")" class="text-small">
+                                                        Contraseña olvidada?
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @Html.TextBoxFor(m => m.password, new { @class = "form-control", @required = "required", @type = "password"})
+                                            @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                                Iniciar Sesion
+                                            </button>
+                                            <label class="label label-danger">@ViewBag.MsjError</label>
+                                            @Html.Label("", (string)ViewBag.MsgError, new { @class = "label label-danger" })
+
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- SCRIPTS-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/SB-Admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="~/Content/SB-Admin/js/demo/chart-area-demo.js"></script>
+    <script src="~/Content/SB-Admin/js/demo/chart-pie-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Content/SB-Admin/js/demo/datatables-demo.js"></script>
+
+    <script src="~/Scripts/Funciones/Funciones.js"></script>
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    
+    <img src="D:\Universidad\DD_MEtalFuncional\metalcore\MetalCore.BLL\images\image-2.png" />
+
+</body>
+</html>
+

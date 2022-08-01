@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="D:\Universidad\2022\IC 2022\Programación Avanzada\Proyecto\SB-Admin - copia\SB-Admin-TFS\RepoMetalCore\SB-Admin\SB-Admin\obj\Release\Package\PackageTmp" />
+  <setAcl path="D:\Universidad\2022\IC 2022\Programación Avanzada\Proyecto\SB-Admin - copia\SB-Admin-TFS\RepoMetalCore\SB-Admin\SB-Admin\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="D:\Universidad\2022\IC 2022\Programación Avanzada\Proyecto\SB-Admin - copia\SB-Admin-TFS\RepoMetalCore\SB-Admin\SB-Admin\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

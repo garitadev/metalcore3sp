@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_METALCOREModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EstadoTrabajo">
+    <Key>
+      <PropertyRef Name="idEstado" />
+    </Key>
+    <Property Name="idEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_EstadoTrabajo" FromRole="EstadoTrabajo" ToRole="Trabajo" />
+  </EntityType>
+  <EntityType Name="Materiales">
+    <Key>
+      <PropertyRef Name="idMaterial" />
+    </Key>
+    <Property Name="idMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idTrabajo" Type="Int32" />
+    <Property Name="idProducto" Type="Int32" />
+    <NavigationProperty Name="Productos" Relationship="Self.FK_Materiales_Productos" FromRole="Materiales" ToRole="Productos" />
+    <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Materiales" FromRole="Materiales" ToRole="Trabajo" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idProveedor" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cantidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Materiales" Relationship="Self.FK_Materiales_Productos" FromRole="Productos" ToRole="Materiales" />
+    <NavigationProperty Name="Proveedor" Relationship="Self.FK_Productos_Proveedor" FromRole="Productos" ToRole="Proveedor" />
+    <Property Name="proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="idProveedor" />
+    </Key>
+    <Property Name="idProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_Proveedor" FromRole="Proveedor" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="idRol" />
+    </Key>
+    <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trabajo">
+    <Key>
+      <PropertyRef Name="idTrabajo" />
+    </Key>
+    <Property Name="idTrabajo" Type="Int32" Nullable="false" />
+    <Property Name="idUsuario" Type="Int32" />
+    <Property Name="idMateriales" Type="Int32" />
+    <Property Name="idEstadoTrabajo" Type="Int32" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EstadoTrabajo" Relationship="Self.FK_Trabajo_EstadoTrabajo" FromRole="Trabajo" ToRole="EstadoTrabajo" />
+    <NavigationProperty Name="Materiales" Relationship="Self.FK_Trabajo_Materiales" FromRole="Trabajo" ToRole="Materiales" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Trabajo_Usuario" FromRole="Trabajo" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idRol" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+    <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Usuario" FromRole="Usuario" ToRole="Trabajo" />
+  </EntityType>
+  <Association Name="FK_Trabajo_EstadoTrabajo">
+    <End Role="EstadoTrabajo" Type="Self.EstadoTrabajo" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoTrabajo">
+        <PropertyRef Name="idEstado" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="idEstadoTrabajo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Materiales_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+    <End Role="Materiales" Type="Self.Materiales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Materiales">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trabajo_Materiales">
+    <End Role="Materiales" Type="Self.Materiales" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materiales">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="idMateriales" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="idProveedor" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="idProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trabajo_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_METALCOREEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EstadoTrabajo" EntityType="Self.EstadoTrabajo" />
+    <EntitySet Name="Materiales" EntityType="Self.Materiales" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_Trabajo_EstadoTrabajo" Association="Self.FK_Trabajo_EstadoTrabajo">
+      <End Role="EstadoTrabajo" EntitySet="EstadoTrabajo" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Materiales_Productos" Association="Self.FK_Materiales_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="Materiales" EntitySet="Materiales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trabajo_Materiales" Association="Self.FK_Trabajo_Materiales">
+      <End Role="Materiales" EntitySet="Materiales" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Proveedor" Association="Self.FK_Productos_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trabajo_Usuario" Association="Self.FK_Trabajo_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

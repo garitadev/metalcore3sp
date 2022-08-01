@@ -1,0 +1,167 @@
+﻿@model SB_Admin.Entities.TrabajosOBJ
+@{
+    ViewBag.Title = "AsignarMaterialesFRM";
+}
+@if (ViewBag.MjsCrear != null)
+{
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Producto fuera de stock!</strong> @ViewBag.Alert
+    </div>
+}
+
+@if (ViewBag.MjsCreado != null)
+{
+    <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Material registrado!</strong> @ViewBag.Alert
+    </div>
+
+}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <p>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#MaterialModal">Agregar Materiales</a>
+    </p>
+
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Asignacion de materiales X trabajo</h6>
+    </div>
+  
+    <div class="card-body">
+  
+        <!--Modal para los materiales-->
+        <div class="modal fade" id="MaterialModal">
+
+            @using (Html.BeginForm("AsignarMateriales", "Trabajo", FormMethod.Post))
+            {
+
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title"> Materiales</h1>
+                                <button type="button" class="close" data-dismiss="modal" arial-lable="Close">
+                                    <span arial-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="usuarioModal">
+                                    <label>Materiales a asignar</label>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            @Html.Label("Codigo de trabajo")
+                                            @Html.TextBoxFor(m => m.IdTrabajo, new { @class = "form-control", @type = "number" })
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <label>Materiales </label>
+                                            @Html.DropDownListFor(m => m.IdProducto, ViewBag.listaprodu as List<SelectListItem>, new { @onclick = "EncontrarPrecio()", @class = "form-control" })
+                                            <label class=" label text-danger" id="IdProducto"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <label>Cantidad</label>
+                                            @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control", @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.Cantidad, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <label>Precio</label>
+                                            @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", @type = "text", @id = "precio" })
+                                            @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+                                            <label class=" label text-danger" id="precio"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Trabajo:</label>
+                                            @Html.DropDownListFor(m => m.IdTrabajo, ViewBag.listaTrabajos as List<SelectListItem>, new { @class = "form-control" })
+
+                                        </div>
+
+                                        <br />
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-warning">Añadir Material</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+              
+
+                    }
+                </div>
+                @using (Html.BeginForm("AsignarMaterialses", "Trabajo", FormMethod.Post))
+                {
+                    <div class="row">
+                        <form id="formulario">
+
+                            <!--para las filas-->
+                            <!--se crea la columna-->
+                            <div class="col-5">
+                                <div class="form-group">
+                                    @Html.Label("Codigo de trabajo")
+                                    @Html.TextBoxFor(m => m.IdTrabajo, new { @class = "form-control", @type = "Text" })
+
+
+
+                                </div>
+
+                                <br />
+                            </div>
+
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Materiales a asignar:</label>
+                                    <select class="form-control" name=" ">
+                                        <option>Material 1</option>
+                                        <option>Material 2</option>
+                                        <option>Material 3</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Cantidad</label>
+                                    <!--Cambiar a TexboxFor de razor usando el modelo-->
+                                    <input type="text" class="form-control" />
+
+                                    <!--Usar Validation MessgageFor de razor usando el modelo-->
+                                    <label class=" label text-danger" id="cantidad"></label>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-warning">Asignar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                }
+            </div>
+</div>

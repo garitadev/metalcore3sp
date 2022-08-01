@@ -1,0 +1,6 @@
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\bin\Release\MetalCore.ETL.dll
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\bin\Release\MetalCore.ETL.pdb
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\obj\Release\MetalCore.ETL.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\obj\Release\MetalCore.ETL.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\obj\Release\MetalCore.ETL.dll
+C:\Users\Lenovo\Desktop\TercerSprint\MetalcoreV7\metalcore-capas\MetalCore.ETL\obj\Release\MetalCore.ETL.pdb

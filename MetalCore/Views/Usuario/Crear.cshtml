@@ -1,0 +1,108 @@
+﻿@model SB_Admin.Entities.UsuarioObj
+
+@{
+    ViewBag.Title = "Agregar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.MjsCrear != null)
+{
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!El usuario ya se encuentra registrado!</strong> @ViewBag.Alert
+    </div>
+}
+
+@if (ViewBag.MjsCreado != null)
+{
+    <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Empleado registrado!</strong> @ViewBag.Alert
+    </div>
+
+}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Creacion de un nuevo usuario</h6>
+    </div>
+    <div class="card-body">
+
+        @using (Html.BeginForm("RegistrarUsuario", "Usuario", FormMethod.Post, new { id = "form" }))
+        {
+            <!--metodo-->
+            <div class="row">
+                <!--para las filas-->
+                <!--se crea la columna-->
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Rol</label>
+                        @Html.DropDownListFor(m => m.idRol, ViewBag.listaRoles as List<SelectListItem>, new { @class = "form-control", @id = "idRol", @onchange = "Habilitar()" })
+                        @Html.ValidationMessageFor(m => m.idRol)
+                    </div>
+                </div>
+
+
+                <div class="col-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Nombre)
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @required = "required", @type = "Text", @id = "Nombre", @onchange = "Habilitar()" })
+                        @Html.ValidationMessageFor(m => m.Nombre, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control", @required = "required", @type = "Text", @id = "Apelli", @onchange = "Habilitar()" })
+                        @Html.ValidationMessageFor(m => m.Apellido, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(m => m.email, new { @class = "form-control", @type = "email", @id = "email", @onchange = "Habilitar()" })
+                        @Html.ValidationMessageFor(m => m.email, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Cedula</label>
+                        @Html.TextBoxFor(m => m.cedula, new { @class = "form-control", @maxlength = "9", @required = "number", id = "cedu" ,@onchange = "Habilitar()"})
+                        @Html.ValidationMessageFor(m => m.cedula, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Contraseña </label>
+                        @Html.TextBoxFor(m => m.password, new { @class = "form-control", @required = "required", @type = "password", @maxlength = "8", @id = "pass", @onchange = "Habilitar()" })
+                    </div>
+                </div>
+
+            </div>
+            //eliminar la opcion de error predeterminado formnovalidate
+            <div class="row">
+
+                <div class="col-12">
+                    <button type="submit" disabled class="btn btn-warning" id="boton" formnovalidate>Guardar Usuario </button>
+                </div>
+
+
+            </div>}
+
+        <div class="col-12" style=" margin: 0 140px; top: -38px;">
+            <form  action="Consultar">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+            </form>
+        </div>
+        
+
+        <!-- DataTales Example -->
+    </div>
+</div>

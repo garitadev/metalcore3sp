@@ -1,0 +1,234 @@
+﻿@model SB_Admin.Entities.TrabajosOBJ
+@{
+    ViewBag.Title = "Asignar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.MjsCrear != null)
+{
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Fecha de la cita no permitida!</strong> @ViewBag.Alert
+    </div>
+}
+
+@if (ViewBag.MjsCreado != null)
+{
+    <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Cita Registrada!</strong> @ViewBag.Alert
+    </div>
+
+}
+
+@if (ViewBag.MjsCrearMate != null)
+{
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Material fuera de stock!</strong> @ViewBag.Alert
+    </div>
+}
+
+@if (ViewBag.MjsCreadoMate != null)
+{
+    <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Material registrado!</strong> @ViewBag.Alert
+    </div>
+
+}
+
+<div class="card shadow mb-4">
+
+
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Registro de un nuevo trabajo</h6>
+
+    </div>
+
+    <div class="modal fade" id="MaterialModal">
+
+        @using (Html.BeginForm("AsignarMateriales", "Trabajo", FormMethod.Post))
+        {
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary" style="color: #ffffff;">
+                        <h1 class="modal-title" style=" margin: 0 120px;"> Materiales</h1>
+                        <button type="button" class="close" data-dismiss="modal" arial-lable="Close">
+                            <span arial-hidden="true" style="color:#ffffff;">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="usuarioModal">
+                            <label>Materiales a asignar</label>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Trabajos:</label>
+                                    @Html.DropDownListFor(m => m.IdTrabajo, ViewBag.listaTrabajos as List<SelectListItem>, new { @class = "form-control" })
+
+                                </div>
+
+                                <br />
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Materiales </label>
+                                    @Html.DropDownListFor(m => m.IdProducto, ViewBag.listaprodu as List<SelectListItem>, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Cantidad</label>
+                                    @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.Cantidad, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", @type = "text" })
+                                    @Html.ValidationMessageFor(m => m.NombreCliente, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-success">Añadir Material</button>
+
+                        </div>
+
+                        <div class="btn-group">
+                            <form action="ConsultarAsigMateri">
+                                <button type="submit" class="btn btn-warning">Materiales Asignados</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        }
+
+      
+    </div>
+
+
+    <div class="card-body">
+        <div class="row">
+            <p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#MaterialModal">Agregar Materiales</a>
+            </p>
+        </div>
+
+        </br>
+
+        <!--Modal para los materiales-->
+
+        @using (Html.BeginForm("RegistrarTrabajo", "Trabajo", FormMethod.Post))
+        {
+            <!--metodo-->
+            <form id="formulario">
+                <div class="row">
+                    <!--para las filas-->
+                    <!--se crea la columna-->
+                    <div class="col-5">
+                        <div class="form-group">
+                            @Html.Label("Empleado a cargo")
+                            @Html.DropDownListFor(m => m.IdUsuario, ViewBag.listaUsuarios as List<SelectListItem>,  new { @class = "form-control", @readonly = "readonly" })
+
+                        </div>
+
+                        <br />
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Nombre del Cliente: </label>
+                            @Html.TextBoxFor(m => m.NombreCliente, new { @class = "form-control", @type = "Text" })
+                            @Html.ValidationMessageFor(m => m.NombreCliente, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Telefono Cliente: </label>
+                            @Html.TextBoxFor(m => m.TelefonoCliente, new { onkeypress = "return isNumber(event)", @class = "form-control", @type = "Text" })
+                            @Html.ValidationMessageFor(m => m.TelefonoCliente, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Fecha: </label>
+                            @Html.TextBoxFor(m => m.Fecha, new { @class = "form-control", @type = "date" })
+                            @Html.ValidationMessageFor(m => m.Fecha, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Descripcion</label>
+                            @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @type = "Text" })
+                            @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Direccion</label>
+                            @Html.TextAreaFor(m => m.Direccion, new { @class = "form-control", @type = "Text" })
+                            @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-warning">Registrar trabajo</button>
+                    </div>
+                </div>
+            </form>
+
+        }
+
+        <!-- DataTales Example -->
+    </div>
+</div>
+
+<script>
+    var data = $("#formulario").serialize();
+
+    if (!$("#formulario").valid()) {
+        return false;
+    }
+</script>

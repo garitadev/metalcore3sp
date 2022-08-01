@@ -1,0 +1,90 @@
+﻿@model MetalCore.ETL.Entities.ProductosObj
+
+@{
+    ViewBag.Title = "Actualizar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <div class="aler alert-danger" style="text-align: center; height: 40px; ">
+        <h4>@ViewBag.mensaje</h4>
+    </div>
+}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Creacion de nuevos productos</h6>
+    </div>
+    <div class="card-body">
+
+        @using (Html.BeginForm("ModificarProducto", "Inventario",  new { idProducto = Model.IDPRODUCTO}, FormMethod.Post))
+        {
+            <!--metodo-->
+            <div class="row">
+                <!--para las filas-->
+                <!--se crea la columna-->
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Proveedor:</label>
+                        @Html.DropDownListFor(m => m.IDPROVEEDOR, ViewBag.listaProveedores as List<SelectListItem>, new { @class = "form-control", @id = "idPro", @onchange = "HabilitarIn()" })
+                    </div>
+
+                    <br />
+                </div>
+
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Nombre Productos</label>
+                        @Html.TextBoxFor(Model => Model.NOMBRE, new { @class = "form-control", @required = "required", @type = "Text", @id = "nombre", @onchange = "HabilitarIn()" })
+                        @Html.ValidationMessageFor(Model => Model.NOMBRE, null, new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Marca Productos</label>
+                        @Html.TextBoxFor(Model => Model.MARCA, new { @class = "form-control", @required = "required", @id = "marca", @onchange = "HabilitarIn()" })
+                        @Html.ValidationMessageFor(Model => Model.MARCA, null, new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Cantidad Productos</label>
+                        @Html.TextBoxFor(Model => Model.CANTIDAD, new { @class = "form-control", @id = "canti", @onchange = "HabilitarIn()" })
+                        @Html.ValidationMessageFor(Model => Model.CANTIDAD, null, new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Precio Productos</label>
+                        @Html.TextBoxFor(Model => Model.PRECIO, new { @class = "form-control", @maxlength = "9", @required = "number", @id = "Preci", @onchange = "HabilitarIn()" })
+                        @Html.ValidationMessageFor(Model => Model.PRECIO, null, new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit"  class="btn btn-warning">Actualizar Registro</button>
+                </div>
+            </div>
+        }
+
+        <div class="col-12" style=" margin: 0 165px; top: -38px;">
+            <form action="Consultar">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+            </form>
+        </div>
+        <!-- DataTales Example -->
+    </div>
+</div>

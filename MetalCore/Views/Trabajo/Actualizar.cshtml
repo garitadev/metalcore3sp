@@ -1,0 +1,115 @@
+﻿@model MetalCore.ETL.Entities.TrabajoObj
+@{
+    ViewBag.Title = "Actualizar trabajos";
+
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Actualizar un trabajo</h6>
+
+    </div>
+
+    <div class="card-body">
+
+
+        <!--Modal para los materiales-->
+
+        @using (Html.BeginForm("ActuaTrabajo", "Trabajo", new { idTrabajo = Model.IdTrabajo }, FormMethod.Post))
+        {
+            <!--metodo-->
+
+            <div class="row">
+                <!--para las filas-->
+                <!--se crea la columna-->
+                <div class="col-5">
+                    <div class="form-group">
+                        @Html.Label("Empleado a cargo")
+                        @Html.DropDownListFor(m => m.IdUsuario, ViewBag.listaUsuarios as List<SelectListItem>, new { @class = "form-control" })
+
+                    </div>
+
+                    <br />
+                </div>
+                <div class="col-5">
+                    <div class="form-group">
+                        @Html.Label("Estado del Trabajo")
+                        @Html.DropDownListFor(m => m.IdEstadoTrabajo, ViewBag.listaEstados as List<SelectListItem>, new { @class = "form-control" })
+
+                    </div>
+
+                    <br />
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Nombre del Cliente: </label>
+                        @Html.TextBoxFor(m => m.NombreCliente, new { @class = "form-control", @type = "Text" })
+                        @Html.ValidationMessageFor(m => m.NombreCliente, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Telefono Cliente: </label>
+                        @Html.TextBoxFor(m => m.TelefonoCliente, new { onkeypress = "return isNumber(event)", @class = "form-control", @type = "Text" })
+                        @Html.ValidationMessageFor(m => m.TelefonoCliente, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Fecha: </label>
+                        @Html.TextBoxFor(model => model.Fecha, "{0:yyyy-MM-dd}", htmlAttributes: new { @class = "Filtros form-control input-sm", type = "date" })
+                        @Html.ValidationMessageFor(m => m.Fecha, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Descripcion</label>
+                        @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @type = "Text" })
+                        @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Direccion</label>
+                        @Html.TextAreaFor(m => m.Direccion, new { @class = "form-control", @type = "Text" })
+                        @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning" formnovalidate>Actualizar trabajo</button>
+                </div>
+            </div>
+
+        }
+        <div class="col-12" style=" margin: 0 140px; top: -38px;">
+            <form action="Consultar">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+            </form>
+        </div>
+
+        <!-- DataTales Example -->
+    </div>
+</div>
+
+<script>
+    var data = $("#formulario").serialize();
+
+    if (!$("#formulario").valid()) {
+        return false;
+    }
+</script>

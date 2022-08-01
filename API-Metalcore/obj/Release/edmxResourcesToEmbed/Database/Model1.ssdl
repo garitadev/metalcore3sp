@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DD_METALCOREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bitacora">
+    <Key>
+      <PropertyRef Name="idRegistro" />
+    </Key>
+    <Property Name="idRegistro" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DetalleError" Type="varchar" MaxLength="500" />
+    <Property Name="Fecha" Type="date" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idRol" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="cedula" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="EstadoTrabajo">
+    <Key>
+      <PropertyRef Name="idEstado" />
+    </Key>
+    <Property Name="idEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="estado" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'DD_METALCORE.dbo.Historico' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="Historico">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idCuenta" Type="int" />
+    <Property Name="fecha" Type="date" />
+    <Property Name="monto" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+  </EntityType>
+  <EntityType Name="Modulo">
+    <Key>
+      <PropertyRef Name="idModulo" />
+    </Key>
+    <Property Name="idModulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Operaciones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="idModulo" Type="int" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProveedor" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="marca" Type="varchar" MaxLength="50" />
+    <Property Name="cantidad" Type="varchar" MaxLength="50" />
+    <Property Name="precio" Type="varchar" MaxLength="50" />
+    <Property Name="idCuenta" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductosTrabajo">
+    <Key>
+      <PropertyRef Name="idMaterial" />
+    </Key>
+    <Property Name="idMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idTrabajo" Type="int" />
+    <Property Name="idProducto" Type="int" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="precio" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="idProveedor" />
+    </Key>
+    <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="direccion" Type="varchar" MaxLength="50" />
+    <Property Name="telefono" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="idRol" />
+    </Key>
+    <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rol_Operacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idRol" Type="int" />
+    <Property Name="idOperacion" Type="int" />
+  </EntityType>
+  <EntityType Name="Trabajo">
+    <Key>
+      <PropertyRef Name="idTrabajo" />
+    </Key>
+    <Property Name="idTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" />
+    <Property Name="idEstadoTrabajo" Type="int" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="direccion" Type="varchar" MaxLength="50" />
+    <Property Name="fecha" Type="varchar" MaxLength="50" />
+    <Property Name="nombreCliente" Type="varchar" MaxLength="50" />
+    <Property Name="telefonoCliente" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Cuentas_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="Historico" Type="Self.Historico" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Historico">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Materiales_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+    <End Role="ProductosTrabajo" Type="Self.ProductosTrabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="ProductosTrabajo">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Materiales_Trabajo">
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="0..1" />
+    <End Role="ProductosTrabajo" Type="Self.ProductosTrabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trabajo">
+        <PropertyRef Name="idTrabajo" />
+      </Principal>
+      <Dependent Role="ProductosTrabajo">
+        <PropertyRef Name="idTrabajo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operaciones_Modulo">
+    <End Role="Modulo" Type="Self.Modulo" Multiplicity="0..1" />
+    <End Role="Operaciones" Type="Self.Operaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulo">
+        <PropertyRef Name="idModulo" />
+      </Principal>
+      <Dependent Role="Operaciones">
+        <PropertyRef Name="idModulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="idProveedor" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="idProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rol_Operacion_Operaciones">
+    <End Role="Operaciones" Type="Self.Operaciones" Multiplicity="0..1" />
+    <End Role="Rol_Operacion" Type="Self.Rol_Operacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operaciones">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rol_Operacion">
+        <PropertyRef Name="idOperacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rol_Operacion_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+    <End Role="Rol_Operacion" Type="Self.Rol_Operacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="Rol_Operacion">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trabajo_EstadoTrabajo">
+    <End Role="EstadoTrabajo" Type="Self.EstadoTrabajo" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoTrabajo">
+        <PropertyRef Name="idEstado" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="idEstadoTrabajo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trabajo_Usuario">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+    <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Trabajo">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DD_METALCOREModelStoreContainer">
+    <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoTrabajo" EntityType="Self.EstadoTrabajo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operaciones" EntityType="Self.Operaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductosTrabajo" EntityType="Self.ProductosTrabajo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol_Operacion" EntityType="Self.Rol_Operacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Historico" EntityType="Self.Historico" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Historico].[idCuenta] AS [idCuenta], 
+    [Historico].[fecha] AS [fecha], 
+    [Historico].[monto] AS [monto], 
+    [Historico].[descripcion] AS [descripcion], 
+    [Historico].[idProducto] AS [idProducto], 
+    [Historico].[cantidad] AS [cantidad]
+    FROM [dbo].[Historico] AS [Historico]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Cuentas_Productos" Association="Self.FK_Cuentas_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="Historico" EntitySet="Historico" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Materiales_Productos" Association="Self.FK_Materiales_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="ProductosTrabajo" EntitySet="ProductosTrabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Materiales_Trabajo" Association="Self.FK_Materiales_Trabajo">
+      <End Role="Trabajo" EntitySet="Trabajo" />
+      <End Role="ProductosTrabajo" EntitySet="ProductosTrabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operaciones_Modulo" Association="Self.FK_Operaciones_Modulo">
+      <End Role="Modulo" EntitySet="Modulo" />
+      <End Role="Operaciones" EntitySet="Operaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Proveedor" Association="Self.FK_Productos_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rol_Operacion_Operaciones" Association="Self.FK_Rol_Operacion_Operaciones">
+      <End Role="Operaciones" EntitySet="Operaciones" />
+      <End Role="Rol_Operacion" EntitySet="Rol_Operacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rol_Operacion_Rol" Association="Self.FK_Rol_Operacion_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Rol_Operacion" EntitySet="Rol_Operacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trabajo_EstadoTrabajo" Association="Self.FK_Trabajo_EstadoTrabajo">
+      <End Role="EstadoTrabajo" EntitySet="EstadoTrabajo" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trabajo_Usuario" Association="Self.FK_Trabajo_Usuario">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Trabajo" EntitySet="Trabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

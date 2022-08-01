@@ -1,0 +1,93 @@
+﻿
+@model MetalCore.ETL.Entities.UsuarioObj
+
+@{
+    ViewBag.Title = "Actualizar";
+}
+
+@if (ViewBag.MjsActua != null)
+{
+    <div class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            &times;
+        </button>
+        <strong>!Se modificó!</strong> @ViewBag.Alert
+    </div>
+}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Actualizacion de un usuario</h6>
+    </div>
+    <div class="card-body">
+
+        @using (Html.BeginForm("ActuaUsuario", "Usuario", FormMethod.Post, new { id = "formA" }))
+        {
+            <!--metodo-->
+            <div class="row">
+                <!--para las filas-->
+                <!--se crea la columna-->
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Rol</label>
+                        @Html.DropDownListFor(m => m.idRol, ViewBag.listaRoles as List<SelectListItem>, new { @class = "form-control", @id = "idRol", @onchange = "HabilitarActua()" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Nombre)
+                        @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control", @required = "required", @type = "Text", @id = "Nombre", @onchange = "HabilitarActua()" })
+                        @Html.ValidationMessageFor(Model => Model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        @Html.TextBoxFor(Model => Model.Apellido, new { @class = "form-control", @required = "required", @type = "Text", @id = "Apelli", @onchange = "HabilitarActua()" })
+                        @Html.ValidationMessageFor(Model => Model.Apellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(Model => Model.email, new { @class = "form-control", @type = "email" })
+                        @Html.ValidationMessageFor(Model => Model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Cedula</label>
+                        @Html.TextBoxFor(Model => Model.cedula, new { @class = "form-control", @maxlength = "9", @required = "number", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(Model => Model.cedula, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Estado</label>
+                        @Html.DropDownListFor(ms => ms.idEstado, ViewBag.listaEstados as List<SelectListItem>, new { @class = "form-control", @id = "idEstado", @onchange = "HabilitarActua()" })
+                    </div>
+                </div>
+
+            </div>
+            //eliminar la opcion de error predeterminado formnovalidate
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" disabled class="btn btn-warning" id="botonActua" formnovalidate>Actualizar Usuario</button>
+                </div>
+            </div>
+        }
+        <div class="col-12">
+            <form action="Consultar" style="margin: 0 153px; position: absolute; top: -38px ">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+            </form>
+        </div>
+
+        <!-- DataTales Example -->
+    </div>
+</div>
+
