@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'metalcorecr'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1982E2F282DB44A89B5FB582EEAF1192 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F154AB9948C349F1B91AB864EFE569B1 }}
           package: .
